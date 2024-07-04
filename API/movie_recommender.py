@@ -28,7 +28,7 @@ def preprocess_data(df):
     genres_df = pd.get_dummies(df_copy.main_category)
 
     features = pd.concat([rating_df, language_df, genres_df, df_copy['vote_average'], df_copy['vote_count']], axis=1)
-
+    # generes , original_language, overview, runtime, tagline, vote_average, vote_count, poster_path 'title', 'main_category'
     return features, df_copy[['title', 'main_category']]
 
 
@@ -42,17 +42,32 @@ def train_knn_model(features, n_neighbors=10):
     return knn
 
 
-def recommend_movies(title, n_recommendations, knn, X, y):
+def first_values_of_columns(df):
+    first_values_dict = {}
+    for column in df.columns:
+        if column != 'id':
+            first_value = df[column].iloc[0]
+            if pd.notna(first_value):
+                first_values_dict[column] = first_value
+    return first_values_dict
+
+
+def recommend_movies(title, n_recommendations, knn, X, y, df):
     if title not in y['title'].values:
         return "Film nie znaleziony w bazie."
 
     idx = y[y['title'] == title].index[0]
     movie_features = X[idx].reshape(1, -1)
-
     distances, indices = knn.kneighbors(movie_features, n_neighbors=n_recommendations + 1)
 
     recommendations = []
     for i in range(1, len(indices[0])):
-        recommendations.append(y.iloc[indices[0][i]].to_dict())
+        recommended_title = y.iloc[indices[0][i]]['title']
+        data = df[df['title'] == recommended_title]
+        data = data.fillna("")
+        data_to_dict = first_values_of_columns(data)
+        recommendations.append(data_to_dict)
 
     return recommendations
+
+
