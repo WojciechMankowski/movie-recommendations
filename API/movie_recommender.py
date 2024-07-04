@@ -28,7 +28,6 @@ def preprocess_data(df):
     genres_df = pd.get_dummies(df_copy.main_category)
 
     features = pd.concat([rating_df, language_df, genres_df, df_copy['vote_average'], df_copy['vote_count']], axis=1)
-    # generes , original_language, overview, runtime, tagline, vote_average, vote_count, poster_path 'title', 'main_category'
     return features, df_copy[['title', 'main_category']]
 
 
@@ -69,5 +68,3 @@ def recommend_movies(title, n_recommendations, knn, X, y, df):
         recommendations.append(data_to_dict)
 
     return recommendations
-
-

@@ -30,8 +30,7 @@ class UserMovie(BaseModel):
     watched: bool = False
 
 class User(BaseModel):
-    id: int
     name: str
     email: str
     password: str
-    created_at: str | datetime
+    created_at: str | datetime = datetime.now()
