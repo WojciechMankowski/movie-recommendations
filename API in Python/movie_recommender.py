@@ -7,8 +7,7 @@ def load_data(filepath):
     return pd.read_csv(filepath)
 
 
-def preprocess_data(df):
-    df_copy = df.copy()
+def preprocess_data(df_copy):
     df_copy.loc[(df_copy['vote_average'] >= 0) & (df_copy['vote_average'] <= 1), 'rating_between'] = "between 0 and 1"
     df_copy.loc[(df_copy['vote_average'] > 1) & (df_copy['vote_average'] <= 2), 'rating_between'] = "between 1 and 2"
     df_copy.loc[(df_copy['vote_average'] > 2) & (df_copy['vote_average'] <= 3), 'rating_between'] = "between 2 and 3"
@@ -46,10 +45,17 @@ def first_values_of_columns(df):
     for column in df.columns:
         if column != 'id':
             first_value = df[column].iloc[0]
+            print(first_value)
             if pd.notna(first_value):
                 first_values_dict[column] = first_value
     return first_values_dict
 
+def to_dict(df):
+    row_dict ={}
+    for index, row in df.iterrows():
+        for column in df.columns:
+            row_dict[column] = row[column]
+    return row_dict
 
 def recommend_movies(title, n_recommendations, knn, X, y, df):
     if title not in y['title'].values:
@@ -60,11 +66,10 @@ def recommend_movies(title, n_recommendations, knn, X, y, df):
     distances, indices = knn.kneighbors(movie_features, n_neighbors=n_recommendations + 1)
 
     recommendations = []
+    all_data = []
     for i in range(1, len(indices[0])):
         recommended_title = y.iloc[indices[0][i]]['title']
         data = df[df['title'] == recommended_title]
         data = data.fillna("")
-        data_to_dict = first_values_of_columns(data)
-        recommendations.append(data_to_dict)
-
-    return recommendations
+        all_data.append(to_dict(data))
+    return all_data

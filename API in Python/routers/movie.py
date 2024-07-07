@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from datebase import get_movie, create_df
+from datebase import get_movies as get_movie, create_df
 from movie_recommender import *
 
 router = APIRouter()
@@ -7,7 +7,7 @@ router = APIRouter()
 
 @router.get("/")
 def get_movies():
-    return get_movie()
+    return [data for data in get_movie().data]
 
 
 @router.get("/recommend/{title}")
@@ -20,6 +20,7 @@ def get_recommendations(title: str, number_recommendations: None | int = 5):
                                        number_recommendations, knn,
                                        features,
                                        y, df)
+
     if isinstance(recommendations, str):
         raise HTTPException(status_code=404, detail=recommendations)
-    return {"recommendations": recommendations}
+    return  recommendations

@@ -34,3 +34,11 @@ class User(BaseModel):
     email: str
     password: str
     created_at: str | datetime = datetime.now()
+
+    def to_dict(self):
+        return {
+            'username': self.name,
+            'email': self.email,
+            'password': self.password,
+            'created_at': self.created_at
+        }

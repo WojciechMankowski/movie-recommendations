@@ -1,4 +1,4 @@
-CREATE TABLE Users (
+CREATE TABLE users (
      id SERIAL PRIMARY KEY ,
     username TEXT UNIQUE NOT NULL,
     email TEXT UNIQUE NOT NULL,
@@ -6,30 +6,37 @@ CREATE TABLE Users (
     created_at TIMESTAMP DEFAULT now()
 );
 
-CREATE TABLE Movies (
+CREATE TABLE genres (
+    id INTEGER,
+    name TEXT,
+    id_genres INTEGER
+);
+
+CREATE TABLE movies (
     id SERIAL PRIMARY KEY ,
     title TEXT,
-    genresTEXTL,
+    original_title TEXT,
     original_language TEXT,
     overview TEXT,
     popularity FLOAT,
     production_companies TEXT,
     release_date DATE,
-    budget FLOAT,
-    revenue FLOAT,
     runtime FLOAT,
-    status TEXT,
-    tagline TEXT,
     vote_average FLOAT,
     vote_count FLOAT,
-    credits TEXT,
     keywords TEXT,
-    poster_path TEXT,
-    backdrop_path TEXT,
-    recommendations TEXT
+    poster_path TEXT
 );
 
-CREATE TABLE UserMovies (
+
+CREATE TABLE moviegenres(
+    id SERIAL PRIMARY KEY ,
+    movie_id INTEGER,
+    genre_id INTEGER
+);
+
+
+CREATE TABLE usermovies (
     id SERIAL PRIMARY KEY ,
     user_id UUID REFERENCES Users(id),
     movie_id UUID REFERENCES Movies(id),
