@@ -43,3 +43,4 @@ CREATE TABLE usermovies (
     watched BOOLEAN DEFAULT false,
     created_at TIMESTAMP
 );
+ALTER TABLE movies ADD COLUMN genres TEXT;

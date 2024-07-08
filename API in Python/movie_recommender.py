@@ -2,7 +2,6 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.neighbors import NearestNeighbors
 
-
 def load_data(filepath):
     return pd.read_csv(filepath)
 
@@ -34,12 +33,9 @@ def scale_features(features):
     min_max_scaler = MinMaxScaler()
     return min_max_scaler.fit_transform(features)
 
-
 def train_knn_model(features, n_neighbors=10):
     knn = NearestNeighbors(n_neighbors=n_neighbors, algorithm='auto').fit(features)
     return knn
-
-
 def first_values_of_columns(df):
     first_values_dict = {}
     for column in df.columns:
@@ -73,3 +69,5 @@ def recommend_movies(title, n_recommendations, knn, X, y, df):
         data = data.fillna("")
         all_data.append(to_dict(data))
     return all_data
+
+
