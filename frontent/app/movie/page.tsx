@@ -1,4 +1,4 @@
-import getMovie from "../lib/get_movies";
+import getMovie from "../helper/get_movies";
 
 const movie = async () => {
   const movies = await getMovie();
