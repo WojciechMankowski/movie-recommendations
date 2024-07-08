@@ -2,6 +2,17 @@ import requests
 from os import getenv
 from dotenv import load_dotenv
 from extract_keywords import extract_keywords
+from supabase import create_client, Client
+def load_supabase_client():
+    load_dotenv()
+    url: str = getenv("SUPABASE_URL")
+    key: str = getenv("SUPABASE_KEY")
+    supabase: Client = create_client(url, key)
+    return supabase
+
+def movie_exists(title: str, original_title: str, supabase: Client) -> bool:
+    response = supabase.table('movies').select('*').eq('title', title).eq('original_title', original_title).execute()
+    return len(response.data) > 0
 
 
 def get_movie_api():
@@ -10,6 +21,7 @@ def get_movie_api():
     url = f'https://api.themoviedb.org/3/discover/movie?api_key={API_KEY}&language=pl-PL'
     all_movies = []
     index = 1
+    supabase = load_supabase_client()
 
     while True:
         response = requests.get(f'{url}&page={index}')
@@ -17,6 +29,10 @@ def get_movie_api():
 
         results = data['results']
         for movie in results:
+            if movie_exists(movie['title'], movie['original_title'], supabase):
+                print(f"Movie '{movie['title']}' already exists in the database. Skipping.")
+                continue
+
             dict_data = {
                 'title': movie['title'],
                 'original_title': movie['original_title'],
