@@ -25,7 +25,8 @@ def movie_exists(title: str, original_title: str) -> bool:
 
 def main():
     index = 0
-    for movie in get_movie_api():
+    movies = get_movie_api()
+    for movie in movies:
         print(movie)
         if movie_exists(movie['title'], movie['original_title']):
             print(f"Movie '{movie['title']}' already exists in the database. Skipping.")
@@ -46,7 +47,7 @@ def main():
             'poster_path': movie['poster_path'],
 
         }
-        add_value('movies_duplicate', dict_data)
+        add_value('movies', dict_data)
         id_movie = get_id_movie(movie['title'])
         for id_genere in genres:
             ids = get_id_genere(id_genere)
@@ -54,7 +55,7 @@ def main():
                 'movie_id': id_movie,
                 'genre_id': ids
             }
-            add_value('moviegenres_duplicate', data)
+            add_value('moviegenres', data)
     print(index)
 
 if __name__ == '__main__':

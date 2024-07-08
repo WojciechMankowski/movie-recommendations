@@ -2,25 +2,7 @@ import requests
 from os import getenv
 from dotenv import load_dotenv
 from extract_keywords import extract_keywords
-# def get_movie_api():
-#     load_dotenv()
-#     API_KEY = getenv('API_KEY')
-#     BASE_URL = 'https://api.themoviedb.org/3'
-#     url = f'{BASE_URL}/movie/now_playing'
-#     params = {
-#         'api_key': API_KEY,
-#         'language': 'pl-Pl',
-#         'page': 1
-#     }
-#     all_movies = []
-#     while True:
-#         response = requests.get(url, params=params).json()
-#         all_movies.append(response['results'][0])
-#         print(len(response['results'][0]))
-#         if params['page'] >= response['total_pages']:
-#             break
-#         params['page'] += 1
-#     return  all_movies
+
 
 def get_movie_api():
     load_dotenv()
@@ -56,6 +38,7 @@ def get_movie_api():
 
     return all_movies
 
+
 def get_genres():
     load_dotenv()
     API_KEY = getenv('API_KEY')
@@ -70,6 +53,7 @@ def get_genres():
         return response.json().get('genres', [])
     else:
         print(f'Error: {response.status_code}')
+
 
 if __name__ == '__main__':
     get_movie_api()

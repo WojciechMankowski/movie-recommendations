@@ -1,13 +1,14 @@
-import MovieAPI from "../types/movies_api";
+import getMovie from "../lib/get_movies";
 
-const getMovie = async (): Promise<MovieAPI> => {
-  const response = await fetch("http://localhost:3000/api/movies");
-  return response.json();
-};
 const movie = async () => {
   const movies = await getMovie();
   const data = movies.data;
-  data.sort((a, b) => b.vote_average - a.vote_average)
+  data.sort((a, b) => {
+    if (a.vote_count === b.vote_count) {
+      return b.vote_average - a.vote_average;
+    }
+    return b.vote_count - a.vote_count;
+  });
   const url = "https://image.tmdb.org/t/p/w500/";
   return (
     <main className="flex flex-wrap flex-row justify-center">
@@ -18,6 +19,7 @@ const movie = async () => {
         const keywords_p = keywords.map((key) => <span>{`${key}, `}</span>);
         return (
           <div
+            key={movie.id}
             className="movie flex flex-col justify-center items-center
           w-1/4 
           bg-[var(--light-accent-color)] p-[10px_20px] m-[25px_10px] rounded-[15px]
