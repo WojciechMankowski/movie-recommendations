@@ -18,5 +18,5 @@ def get_id_genere(id):
     url: str = os.environ.get("SUPABASE_URL")
     key: str = os.environ.get("SUPABASE_KEY")
     supabase: Client = create_client(url, key)
-    result = supabase.from_('genres').select('id').eq('id_generes', id).execute()
-    return result.data[0]['id']
+    result = supabase.from_('genres').select('name').eq('id_generes', id).execute()
+    return result.data[0]['name']

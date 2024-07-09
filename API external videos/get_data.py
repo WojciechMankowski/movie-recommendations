@@ -1,4 +1,4 @@
-import requests
+import requests, time
 from os import getenv
 from dotenv import load_dotenv
 from extract_keywords import extract_keywords
@@ -26,7 +26,7 @@ def get_movie_api():
     while True:
         response = requests.get(f'{url}&page={index}')
         data = response.json()
-
+        print(data)
         results = data['results']
         for movie in results:
             if movie_exists(movie['title'], movie['original_title'], supabase):
@@ -49,7 +49,7 @@ def get_movie_api():
             all_movies.append(dict_data)
 
         index += 1
-        if index == 250:
+        if index == 499:
             break
 
     return all_movies
@@ -69,6 +69,9 @@ def get_genres():
         return response.json().get('genres', [])
     else:
         print(f'Error: {response.status_code}')
+
+
+
 
 
 if __name__ == '__main__':

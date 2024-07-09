@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from datebase import create_df
 from movie_recommender import preprocess_data, scale_features, train_knn_model, recommend_movies
 
