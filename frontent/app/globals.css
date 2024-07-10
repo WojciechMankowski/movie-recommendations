@@ -47,9 +47,9 @@ header{
 footer{
   background-color: var(--accent-color);
 }
-/* .movie{
+.movie{
   width: 30%;
-  height: 25vh;
+  height: 30vh;
   background-color: var(--light-accent-color);
   padding: 10px 20px;
   margin: 25px 10px;
@@ -57,4 +57,8 @@ footer{
 }
 .metadata span{
   padding-right: 5px;
-} */
+}
+.genres{
+  border-radius: 5px;
+  background-color: var(--highlight-color);
+}

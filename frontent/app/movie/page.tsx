@@ -13,19 +13,22 @@ const movie = async () => {
   const url = "https://image.tmdb.org/t/p/w500/";
   return (
     <main className="flex flex-wrap flex-row justify-center">
-      <h2>Filmy</h2>
-      {data.map((movie) => {
-        return (
-          <Movie id={movie.id} title={movie.title}
-           overview={movie.overview}
-           release_date={movie.release_date} 
-           vote_average={movie.vote_average}
-           vote_count={movie.vote_count}
-            keywords={movie.keywords.split(",")} 
-           poster_path={`${url}${movie.poster_path}`}
-            genres={movie.genres} />
-        );
-      })}
+      <h2 className="text-3xl font-bold text-gray-900 p-5">Filmy</h2>
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 px-10">
+        {data.map((movie, index) => {
+          return (
+            <Movie
+              id={index}
+              title={movie.title}
+              release_date={movie.release_date}
+              vote_average={movie.vote_average}
+              vote_count={movie.vote_count}
+              poster_path={`${url}${movie.poster_path}`}
+              genres={movie.genres}
+            />
+          );
+        })}
+      </div>
     </main>
   );
 };

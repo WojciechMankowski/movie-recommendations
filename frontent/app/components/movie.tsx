@@ -1,71 +1,44 @@
 import React from "react";
 import Link from "next/link";
-type MovieProps = {
-  id: number;
-  title: string;
-  overview: string;
-  release_date: string | null;
-  vote_average: number;
-  vote_count: number;
-  keywords: string[];
-  poster_path: string;
-  genres: string | null;
-};
+import { MovieProps } from "../types/props";
 
 export const Movie: React.FC<MovieProps> = ({
   id,
   title,
-  overview,
   release_date,
   vote_average,
   vote_count,
-  keywords,
   poster_path,
   genres,
 }) => {
-  const keywords_p = keywords.map((key) => <span>{`${key}, `}</span>);
+  const genreElements = genres?.split(", ").map((item) => {
+    if (item) {
+      return (
+        <p key={item} className="w-3/2 bg-secondary-color m-2 rounded-lg p-2  text-white">
+          {item}
+        </p>
+      );
+    }
+  });
+
   return (
-    <div
-      key={id}
-      className="movie flex flex-col justify-center items-center
-          w-1/4 
-          bg-[var(--light-accent-color)] p-[10px_20px] m-[25px_10px] rounded-[15px]
-          "
-    >
-      <h2>
-        <strong>{title}</strong>
+    <div key={id} className="w-full h-50 bg-gray-300 rounded-xl p-10 relative">
+      <Link href={`/movie/${title}`}>
+      <h2 className="text-4xl font-extrabold">
+        {title}
       </h2>
-      <img
-        src={poster_path}
-        alt=""
-        className=" h-18 w-16 object-center p-[5px 10px]"
-      />
+      <img src={poster_path} alt="" className="h-30 w-30 object-center p-5" /> </Link>
       <div className="metadata pt-5">
-        <span>
-          <strong>Średnia ocen:</strong> {vote_average}
-        </span>
-        <br />
-        <span>
-          <strong>Liczba ocen:</strong> {vote_count}
-        </span>
-        <br />
-        <span>
-          <strong>Data wydania:</strong> {release_date}
-        </span>
-        <br />
-        <strong className="pt-20 pr-10">Słowa kluczowe: </strong>
-        <br />
-        {keywords_p}
+        <p><strong>Średnia ocena:</strong> {vote_average}</p>
+        <p><strong>Liczba ocen:</strong> {vote_count}</p>
+        <p><strong>Data wydania:</strong> {release_date}</p>
+
+        <div className="flex flex-wrap items-center justify-center flex-grow">
+          {genreElements}
+        </div>
+
+       
       </div>
-      <button
-        className="
-            bg-secondary-color
-             p-[10px_20px] 
-            hover:bg-[var(--accent-color)] text-white font-bold rounded-full"
-      >
-        <Link href={`/movie/${title}`}> Czytaj więcej</Link>
-      </button>
     </div>
   );
 };
- 
