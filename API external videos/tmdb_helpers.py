@@ -7,7 +7,7 @@ from extract_keywords import extract_keywords
 def get_all_movies():
     load_dotenv()
     API = getenv('API_KEY')
-
+    print(API)
     tmdb = TMDb()
     tmdb.api_key = API
     tmdb.language = 'pl'

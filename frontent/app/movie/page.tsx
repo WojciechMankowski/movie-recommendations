@@ -1,5 +1,6 @@
 import getMovie from "../helper/get_movies";
 import { Movie } from "../components/movie";
+
 const movie = async () => {
   const movies = await getMovie();
   const data = movies.data;

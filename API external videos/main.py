@@ -28,7 +28,7 @@ def main():
     index = 0
     movies = get_api_data()
     for movie in movies:
-        if movie_exists(movie['title'], movie['original_title'], supabase):
+        if movie_exists(movie['title'], movie['original_title']):
             print(f"Movie '{movie['title']}' already exists in the database. Skipping.")
             continue
         add_value('movies', movie)
