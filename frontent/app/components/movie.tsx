@@ -11,7 +11,9 @@ export const Movie: React.FC<MovieProps> = ({
   poster_path,
   genres,
 }) => {
-  const genreElements = genres?.split(", ").map((item) => {
+  const genresList: string[] = genres?.split(", ")
+  genresList?.sort((a, b) => a.length - b.length);
+  const genreElements = genresList?.map((item) => {
     if (item) {
       return (
         <p key={item} className="w-3/2 bg-secondary-color m-2 rounded-lg p-2  text-white">

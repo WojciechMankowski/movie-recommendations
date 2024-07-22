@@ -12,7 +12,7 @@ interface Movie {
     vote_count: number;
     keywords: string;
     poster_path: string;
-    genres: string | null;
+    genres: string 
     moviegenres: GenreMovie[];
   }
 export default Movie

@@ -1,5 +1,5 @@
-import { createClient } from "./server";
-import UserType from "../types/user";
+import { createClient } from "../server";
+import UserType from "../../types/user";
 
 const addUser = async (data: UserType) => {
     const supabase = createClient();

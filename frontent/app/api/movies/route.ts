@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import fetchData from '@/app/database/get_movies';
+import fetchData from '@/app/database/movies/get_movies';
 
 export async function GET() {
     const data = await fetchData()

@@ -1,5 +1,5 @@
-import { createClient } from "./server";
-import Movie from "../types/movie";
+import { createClient } from "../server";
+import Movie from "../../types/movie";
 
  const fetchMovieTitle = async (title: string) => {
     const supabase = createClient();

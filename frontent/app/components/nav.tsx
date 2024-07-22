@@ -9,12 +9,12 @@ export const Nav = () => (
         </Link>
       </li>
       <li>
-        <Link href="/movie" className="item">
+        <Link href="/movies" className="item">
           Filmy
         </Link>
       </li>
       <li>
-        <Link href="/book" className="item">
+        <Link href="/books" className="item">
           Książki
         </Link>
       </li>

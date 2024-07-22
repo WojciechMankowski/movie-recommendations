@@ -1,4 +1,4 @@
-import { createClient } from "./server";
+import { createClient } from "../server";
 
 export default async function User() {
   const supabase = createClient();
