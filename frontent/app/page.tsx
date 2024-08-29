@@ -15,7 +15,7 @@ const Home = async () => {
   return (
     <main className="">
       <h1 className="text-3xl font-bold text-gray-900 p-5">Top 12 filmów</h1>
-      <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 px-10">
+      <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 px-10 ">
         {top.map((movie, index) => {
           return (
             <Movie
